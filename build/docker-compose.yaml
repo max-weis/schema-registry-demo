@@ -1,6 +1,14 @@
 services:
 
-  postgres:
+  postgres-producer:
+    image: postgres:14.1-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./producer-db/:/docker-entrypoint-initdb.d/
+
+  postgres-consumer:
     image: postgres:14.1-alpine
     environment:
       - POSTGRES_USER=postgres
@@ -8,7 +16,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./db/:/docker-entrypoint-initdb.d/
+      - ./consumer-db/:/docker-entrypoint-initdb.d/
 
   redpanda:
     image: docker.redpanda.com/vectorized/redpanda:v21.11.15
@@ -47,6 +55,15 @@ services:
     restart: always
     environment:
       KAFKA_BOOTSTRAP_SERVERS: redpanda:29092
-      POSTGRES_HOST: postgres
+      POSTGRES_HOST: postgres-producer
     ports:
       - 8080:8080
+
+  profile-consumer:
+    image: maxweis/profile-consumer:1.0.0-SNAPSHOT
+    restart: always
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: redpanda:29092
+      POSTGRES_HOST: postgres-consumer
+    ports:
+      - 8081:8080

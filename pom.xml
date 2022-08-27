@@ -12,6 +12,7 @@
 
     <modules>
         <module>profile-producer</module>
+        <module>profile-consumer</module>
     </modules>
 
     <properties>
