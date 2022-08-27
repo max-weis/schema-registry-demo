@@ -47,5 +47,6 @@ services:
     restart: always
     environment:
       KAFKA_BOOTSTRAP_SERVERS: redpanda:29092
+      POSTGRES_HOST: postgres
     ports:
       - 8080:8080
