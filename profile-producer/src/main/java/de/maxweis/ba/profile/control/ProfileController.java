@@ -2,10 +2,11 @@ package de.maxweis.ba.profile.control;
 
 import de.maxweis.ba.profile.boundary.ProfileEventProducer;
 import de.maxweis.ba.profile.entity.Profile;
+import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import org.jboss.logging.Logger;
+import java.util.UUID;
 
 @ApplicationScoped
 public class ProfileController {
@@ -15,17 +16,13 @@ public class ProfileController {
     @Inject
     ProfileEventProducer producer;
 
-    @Inject
-    ProfileRepository repository;
-
-    public Long saveProfile(final Profile profile) {
-        Long id = this.repository.save(profile);
+    public String saveProfile(final Profile profile) {
+        UUID uuid = UUID.randomUUID();
+        profile.setId(uuid.toString());
 
         LOG.info(profile);
-
         this.producer.send(profile);
 
-        return id;
+        return profile.getId();
     }
-
 }

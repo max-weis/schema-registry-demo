@@ -4,30 +4,26 @@ import de.maxweis.ba.profile.entity.Profile;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @ApplicationScoped
 public class ProfileController {
-
     private static final Logger LOG = Logger.getLogger(ProfileController.class);
 
-    @Inject
-    ProfileRepository repository;
+    private final Map<String, Profile> cache;
 
-    public List<Profile> findAll() {
-        List<Profile> list = this.repository.list();
-
-        LOG.infof("found %d profiles", list.size());
-
-        return list;
+    public ProfileController() {
+        this.cache = new HashMap<>();
     }
 
     public void save(final Profile profile) {
-        Long id = this.repository.save(profile);
-
-        LOG.infof("saved profile: %d", id);
+        LOG.infof("saved profile: %s", profile);
+        this.cache.put(profile.getId(), profile);
     }
 
-
+    public Profile findByID(final String id) {
+        return this.cache.get(id);
+    }
 }

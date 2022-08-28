@@ -1,18 +1,26 @@
 package de.maxweis.ba.profile.boundary;
 
-import javax.persistence.Column;
+import de.maxweis.ba.profile.entity.Profile;
 
 public class ProfileEventDTO {
-    Long id;
-    String name;
-    String email;
-    String gender;
-    String image;
+
+    public String id;
+
+    public String firstName;
+
+    public String lastName;
+
+    public String email;
+
+    public String gender;
+
+    public String image;
 
 
     public static final class ProfileEventDTOBuilder {
-        private Long id;
-        private String name;
+        private String id;
+        private String firstName;
+        private String lastName;
         private String email;
         private String gender;
         private String image;
@@ -24,13 +32,18 @@ public class ProfileEventDTO {
             return new ProfileEventDTOBuilder();
         }
 
-        public ProfileEventDTOBuilder withId(Long id) {
+        public ProfileEventDTOBuilder withId(String id) {
             this.id = id;
             return this;
         }
 
-        public ProfileEventDTOBuilder withName(String name) {
-            this.name = name;
+        public ProfileEventDTOBuilder withFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public ProfileEventDTOBuilder withLastName(String lastName) {
+            this.lastName = lastName;
             return this;
         }
 
@@ -52,10 +65,11 @@ public class ProfileEventDTO {
         public ProfileEventDTO build() {
             ProfileEventDTO profileEventDTO = new ProfileEventDTO();
             profileEventDTO.gender = this.gender;
-            profileEventDTO.name = this.name;
-            profileEventDTO.email = this.email;
+            profileEventDTO.lastName = this.lastName;
             profileEventDTO.id = this.id;
+            profileEventDTO.email = this.email;
             profileEventDTO.image = this.image;
+            profileEventDTO.firstName = this.firstName;
             return profileEventDTO;
         }
     }

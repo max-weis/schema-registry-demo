@@ -1,19 +1,8 @@
 package de.maxweis.ba.profile.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
 public class Profile {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
-    @Column(name = "first_name")
+    private String id;
     private String firstName;
-    @Column(name = "last_name")
     private String lastName;
     private String email;
     private String gender;
@@ -22,11 +11,11 @@ public class Profile {
     public Profile() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -71,7 +60,7 @@ public class Profile {
     }
 
     public static final class ProfileBuilder {
-        private Long id;
+        private String id;
         private String firstName;
         private String lastName;
         private String email;
@@ -85,7 +74,7 @@ public class Profile {
             return new ProfileBuilder();
         }
 
-        public ProfileBuilder withId(Long id) {
+        public ProfileBuilder withId(String id) {
             this.id = id;
             return this;
         }

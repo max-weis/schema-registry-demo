@@ -12,12 +12,21 @@ import javax.inject.Inject;
 public class ProfileEventProducer {
     @Inject
     @Channel("profile-out")
-    Emitter<Profile> emitter;
+    Emitter<ProfileEventDTO> emitter;
 
     public ProfileEventProducer() {
     }
 
     public void send(final Profile profile) {
-        this.emitter.send(Message.of(profile));
+        ProfileEventDTO eventDTO = ProfileEventDTO.ProfileEventDTOBuilder.aProfileEventDTO()
+                .withId(profile.getId())
+                .withFirstName(profile.getFirstName())
+                .withLastName(profile.getLastName())
+                .withGender(profile.getGender())
+                .withEmail(profile.getEmail())
+                .withImage(profile.getEmail())
+                .build();
+
+        this.emitter.send(Message.of(eventDTO));
     }
 }

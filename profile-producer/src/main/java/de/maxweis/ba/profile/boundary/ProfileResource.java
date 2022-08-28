@@ -1,7 +1,6 @@
 package de.maxweis.ba.profile.boundary;
 
 import de.maxweis.ba.profile.control.ProfileController;
-import de.maxweis.ba.profile.entity.Profile;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -22,7 +21,7 @@ public class ProfileResource {
     @Produces(MediaType.WILDCARD)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response saveProfile(final ProfileBaseDTO profile) {
-        Long id = this.controller.saveProfile(profile.toEntity());
+        String id = this.controller.saveProfile(profile.toEntity());
         return Response.created(URI.create("/profile/" + id)).build();
     }
 }

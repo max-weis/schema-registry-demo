@@ -1,23 +1,5 @@
 services:
 
-  postgres-producer:
-    image: postgres:14.1-alpine
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    volumes:
-      - ./producer-db/:/docker-entrypoint-initdb.d/
-
-  postgres-consumer:
-    image: postgres:14.1-alpine
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - 5432:5432
-    volumes:
-      - ./consumer-db/:/docker-entrypoint-initdb.d/
-
   redpanda:
     image: docker.redpanda.com/vectorized/redpanda:v21.11.15
     command:
