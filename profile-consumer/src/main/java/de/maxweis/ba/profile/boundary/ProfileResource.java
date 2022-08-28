@@ -23,8 +23,6 @@ public class ProfileResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @APIResponse(description = "find profile by id")
-    @APIResponseSchema(value = Profile.class)
     public Response findByID(@PathParam("id") final String id) {
         Profile profile = this.controller.findByID(id);
         return Response.ok(profile).build();
