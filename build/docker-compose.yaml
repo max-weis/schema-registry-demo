@@ -24,11 +24,25 @@ services:
       - 9092:9092
       - 28082:28082
       - 29092:29092
+      - 8081:8081
+      - 8082:8082
 
   redpanda-console:
     image: docker.redpanda.com/vectorized/console
+    entrypoint: /bin/sh
+    command: -c "echo \"$$CONSOLE_CONFIG_FILE\" > /tmp/config.yml; /app/console"
     environment:
-      KAFKA_BROKERS: redpanda:29092
+      CONFIG_FILEPATH: /tmp/config.yml
+      CONSOLE_CONFIG_FILE: |
+        kafka:
+          brokers: ["redpanda:29092"]
+          schemaRegistry:
+            enabled: true
+            urls: ["http://redpanda:8081"]
+        redpanda:
+          adminApi:
+            enabled: true
+            urls: ["http://redpanda:9644"]
     ports:
       - 8888:8080
 
@@ -37,15 +51,17 @@ services:
     restart: always
     environment:
       KAFKA_BOOTSTRAP_SERVERS: redpanda:29092
+      REGISTRY_HOST: redpanda
       POSTGRES_HOST: postgres-producer
     ports:
-      - 8080:8080
+      - 9080:8080
 
   profile-consumer:
     image: maxweis/profile-consumer:1.0.0-SNAPSHOT
     restart: always
     environment:
       KAFKA_BOOTSTRAP_SERVERS: redpanda:29092
+      REGISTRY_HOST: redpanda
       POSTGRES_HOST: postgres-consumer
     ports:
-      - 8081:8080
+      - 9081:8080
