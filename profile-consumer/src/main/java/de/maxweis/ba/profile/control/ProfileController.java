@@ -5,7 +5,6 @@ import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @ApplicationScoped
