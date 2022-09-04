@@ -1,7 +1,5 @@
 package de.maxweis.ba.profile.boundary;
 
-import de.maxweis.ba.profile.entity.Profile;
-
 public class ProfileEventDTO {
 
     public String id;

@@ -12,19 +12,19 @@ import javax.inject.Inject;
 public class ProfileEventProducer {
     @Inject
     @Channel("profile-out")
-    Emitter<ProfileEventDTO> emitter;
+    Emitter<ProfileDTO> emitter;
 
     public ProfileEventProducer() {
     }
 
     public void send(final Profile profile) {
-        ProfileEventDTO eventDTO = ProfileEventDTO.ProfileEventDTOBuilder.aProfileEventDTO()
-                .withId(profile.getId())
-                .withFirstName(profile.getFirstName())
-                .withLastName(profile.getLastName())
-                .withGender(profile.getGender())
-                .withEmail(profile.getEmail())
-                .withImage(profile.getEmail())
+        ProfileDTO eventDTO = ProfileDTO.newBuilder()
+                .setId(profile.getId())
+                .setFirstName(profile.getFirstName())
+                .setLastName(profile.getLastName())
+                .setGender(profile.getGender())
+                .setEmail(profile.getEmail())
+                .setImage(profile.getEmail())
                 .build();
 
         this.emitter.send(Message.of(eventDTO));

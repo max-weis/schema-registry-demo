@@ -1,0 +1,31 @@
+{
+  "namespace": "de.maxweis.ba.profile.boundary",
+  "type": "record",
+  "name": "ProfileDTO",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "firstName",
+      "type": "string"
+    },
+    {
+      "name": "lastName",
+      "type": "string"
+    },
+    {
+      "name": "email",
+      "type": "string"
+    },
+    {
+      "name": "gender",
+      "type": "string"
+    },
+    {
+      "name": "image",
+      "type": "string"
+    }
+  ]
+}
